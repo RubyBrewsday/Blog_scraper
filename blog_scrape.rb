@@ -30,17 +30,17 @@ print "Please enter number of pages to scrape: ".colorize(:yellow)
 @pages_to_scrape = gets.chomp!.to_i
 
 
-
-
-def blog_links_grabber(number_of_pages)
+def blog_links_grabber
 	blog_urls = []
 
 		i = 1
-		blog_links = [["http://www.nakedcapitalism.com/page/#{i}", "//h3[@class='post-title entry-title']"],["http://www.ritholtz.com/blog/page/#{i}", "div[@class='headline']", ],["http://www.marginalrevolution.com/page/#{i}", "h2[@class='entry-title']"],["http://www.taxprof.typepad.com/taxprof_blog/page/#{i}", "div[@class='article']"],["http://www.timworstall.com/page/#{i}", "h2[@class='entry-title']"]]
+		
 
-		while i <= number_of_pages
-			doc = open(blog_links[@choice-1][0]) { |f| Hpricot(f)  }
-			links = doc.search(blog_links[@choice-1][1])
+		while i <= @pages_to_scrape
+		blog_links = [["http://www.nakedcapitalism.com/page/#{i}", "//h3[@class='post-title entry-title']"],["http://www.ritholtz.com/blog/page/#{i}", "div[@class='headline']", ],["http://www.marginalrevolution.com/page/#{i}", "h2[@class='entry-title']"],["http://www.taxprof.typepad.com/taxprof_blog/page/#{i}", "div[@class='article']"],["http://www.timworstall.com/page/#{i}", "h2[@class='entry-title']"]]
+		
+			individual_articles = open(blog_links[@choice-1][0]) { |f| Hpricot(f)  }
+			links = individual_articles.search(blog_links[@choice-1][1])
 
 			if (@choice == 1) || (@choice == 3 ) || (@choice == 5)
 				(links/'a').each do |a|
@@ -143,12 +143,12 @@ total_external_links = Array.new
 
 puts "Let the scraping commence!".colorize(:yellow)
 puts "==================================================================".colorize(:green)
-blog_entries = blog_links_grabber(@choice)
+blog_entries = blog_links_grabber
 puts "==================================================================".colorize(:green)
 puts
 puts "Preparing to extract links....".colorize(:yellow)
 puts
-
+ 
 number_of_entries = blog_entries.count 
 i = 1
 pbar = ProgressBar.new("Progress", number_of_entries)

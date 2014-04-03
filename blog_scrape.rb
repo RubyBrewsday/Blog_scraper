@@ -283,7 +283,7 @@ while i <= number_of_entries
 end
 
 puts "==================================================================".colorize(:green)
-puts ""
+puts 
 
 print "What do you want to name the file? ".colorize(:yellow)
 name = gets.chomp!

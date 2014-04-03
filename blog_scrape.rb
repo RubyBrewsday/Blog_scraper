@@ -24,7 +24,8 @@ print "       [4] => Tax Prof | [5] => Tim Worstall\n        ".colorize(:green)
 
 @choice = gets.chomp!.to_i
 
-unless @choice =~ /[1..5]/ 
+
+unless @choice <= 5 
 	raise "Not a valid website....yet!"
 end
 
@@ -45,7 +46,7 @@ def blog_links_grabber
 			individual_articles = open(blog_links[@choice-1][0]) { |f| Hpricot(f)  }
 			links = individual_articles.search(blog_links[@choice-1][1])
 
-			if (@choice == 1) || (@choice == 3 ) || (@choice == 5)
+			if [1,3,5].include?(@choice)
 				(links/'a').each do |a|
 					blog_urls.push(a.attributes[ 'href' ])
 					puts a.attributes['href']
@@ -60,8 +61,6 @@ def blog_links_grabber
 					blog_urls.push(a.attributes[ 'href' ])
 					puts a.attributes['href']
 				end
-			else
-				raise "Invalide website choice"
 			end
 			i += 1
 		end

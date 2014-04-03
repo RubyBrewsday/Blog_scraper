@@ -4,7 +4,7 @@ require 'csv'
 require 'progressbar'
 require 'colorize'
 
-#helper method for array class to conver them into hashes for frequency later on
+#helper method for array class to convert arrays of links into hashes for frequency later on
 class Array 
 	def count2
 		k = Hash.new(0)

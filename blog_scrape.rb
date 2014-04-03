@@ -49,19 +49,19 @@ end
 def marginal_revolution_blog_links_grabber(number_of_pages)
 	blog_urls = []
 
-		i = 1
-		while i <= number_of_pages
-			doc = open("http://www.marginalrevolution.com/page/#{i}") { |f| Hpricot(f)  }
-			links = doc.search("h2[@class='entry-title']")
+	i = 1
+	while i <= number_of_pages
+		doc = open("http://www.marginalrevolution.com/page/#{i}") { |f| Hpricot(f)  }
+		links = doc.search("h2[@class='entry-title']")
 
-			(links/'a').each do |a|
-				blog_urls.push(a.attributes[ 'href' ])
-				puts a.attributes['href']
-			end
-
-			i += 1
+		(links/'a').each do |a|
+			blog_urls.push(a.attributes[ 'href' ])
+			puts a.attributes['href']
 		end
-		blog_urls
+
+		i += 1
+	end
+	blog_urls
 end
 
 def tax_prof_blog_links_grabber(number_of_pages)

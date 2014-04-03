@@ -149,8 +149,6 @@ puts
 puts "Preparing to extract links....".colorize(:yellow)
 puts
 
-puts blog_entries.count 
-puts 
 number_of_entries = blog_entries.count 
 i = 1
 pbar = ProgressBar.new("Progress", number_of_entries)

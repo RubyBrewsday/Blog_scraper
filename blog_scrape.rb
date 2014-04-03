@@ -22,12 +22,12 @@ print "Enter: [1] => Naked Capitalism | [2] => Big Picture | [3] => Marginal Rev
 print "       [4] => Tax Prof | [5] => Tim Worstall\n        ".colorize(:green)
 
 
-@choice = gets.chomp!
+@choice = gets.chomp!.to_i
 
 
 
 print "Please enter number of pages to scrape: ".colorize(:yellow)
-@pages_to_scrape = gets.chomp!
+@pages_to_scrape = gets.chomp!.to_i
 
 
 def blog_links_grabber(website)
@@ -50,7 +50,7 @@ def marginal_revolution_blog_links_grabber(number_of_pages)
 	blog_urls = []
 
 		i = 1
-		while i <= number_of_pages.to_i
+		while i <= number_of_pages
 			doc = open("http://www.marginalrevolution.com/page/#{i}") { |f| Hpricot(f)  }
 			links = doc.search("h2[@class='entry-title']")
 
@@ -68,7 +68,7 @@ def tax_prof_blog_links_grabber(number_of_pages)
 	blog_urls = []
 
 	i = 1
-	while i <= number_of_pages.to_i
+	while i <= number_of_pages
 		doc = open("http://www.taxprof.typepad.com/taxprof_blog/page/#{i}") { |f| Hpricot(f)  }
 		links = doc.search("div[@class='article']")
 
@@ -85,7 +85,7 @@ def tim_worstall_blog_links_grabber(number_of_pages)
 	blog_urls = []
 
 	i = 1
-	while i <= number_of_pages.to_i
+	while i <= number_of_pages
 		doc = open("http://www.timworstall.com/page/#{i}") { |f| Hpricot(f)  }
 		links = doc.search("h2[@class='entry-title'")
 
@@ -102,7 +102,7 @@ def big_picture_blog_links_grabber(number_of_pages)
 	blog_urls = []
 
 	i = 1
-	while i <= number_of_pages.to_i
+	while i <= number_of_pages
 		doc = open("http://www.ritholtz.com/blog/page/#{i}") { |f| Hpricot(f)  }
 		links = doc.search("div[@class='headline']")
 
@@ -120,7 +120,7 @@ def naked_capitalism_blog_links_grabber(number_of_pages)
 	blog_urls = []
 
 	i = 1
-	while i <= number_of_pages.to_i
+	while i <= number_of_pages
 		doc = open("http://www.nakedcapitalism.com/page/#{i}") {|f| Hpricot(f)}
 		links = doc.search("//h3[@class='post-title entry-title']")
 	
@@ -187,31 +187,31 @@ def link_extractor(content)
 		links.each do |link|
 			case link
 			when /(.*)nakedcapitalism.com(.*)/ 
-				if @choice.to_i == 1
+				if @choice == 1
 					next
 				else
 					external_links.push(link.scan(/.*com\//))
 				end
 			when /(.*)ritholtz.com(.*)/ 
-				if @choice.to_i == 2
+				if @choice == 2
 					next
 				else
 					external_links.push(link.scan(/.*com\//))
 				end
 			when /(.*)marginalrevolution.com(.*)/
-				if @choice.to_i == 3
+				if @choice == 3
 					next
 				else
 					external_links.push(link.scan(/.com\//))
 				end
 			when /(.*)taxprof.typepad.com(.*)/
-				if @choice.to_i == 4
+				if @choice == 4
 					next
 				else
 					external_links.push(link.scan(/.com\//))
 				end
 			when /(.*)timworstall.com(.*)/
-				if @choice.to_i == 5
+				if @choice == 5
 					next
 				else
 					external_links.push(link.scan(/.com\//))
@@ -242,7 +242,7 @@ total_external_links = Array.new
 
 puts "Let the scraping commence!".colorize(:yellow)
 puts "==================================================================".colorize(:green)
-blog_entries = blog_links_grabber(@choice.to_i)
+blog_entries = blog_links_grabber(@choice)
 #puts blog_entries
 puts "==================================================================".colorize(:green)
 puts
@@ -255,23 +255,23 @@ pbar = ProgressBar.new("Progress", number_of_entries)
 while i <= number_of_entries
 	
 	blog_entries.each do |blog|
-		if @choice.to_i == 1
+		if @choice == 1
 			naked_content_grabber(blog).each do |link|
 				total_external_links.push(link)
 			end
-		elsif @choice.to_i == 2
+		elsif @choice == 2
 			big_content_grabber(blog).each do |link|
 				total_external_links.push(link)
 			end
-		elsif @choice.to_i == 3
+		elsif @choice == 3
 			marginal_revolution_content_grabber(blog).each do |link|
 				total_external_links.push(link)
 			end
-		elsif @choice.to_i == 4
+		elsif @choice == 4
 			tax_prof_content_grabber(blog).each do |link|
 				total_external_links.push(link)
 			end
-		elsif @choice.to_i == 5
+		elsif @choice == 5
 			tim_worstall_content_grabber(blog).each do |link|
 				total_external_links.push(link)
 			end

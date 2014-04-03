@@ -1,7 +1,7 @@
 Blog_scraper
 ============
 
-Ruby Scraper for pulling info off of top econ blogs
+Ruby Scraper for pulling info off of top econ blogs about who they reference in their articles
 
 
 ===================================================

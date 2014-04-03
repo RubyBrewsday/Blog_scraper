@@ -24,6 +24,9 @@ print "       [4] => Tax Prof | [5] => Tim Worstall\n        ".colorize(:green)
 
 @choice = gets.chomp!.to_i
 
+unless @choice =~ /[1..5]/ 
+	raise "Not a valid website...yet!"
+end
 
 
 print "Please enter number of pages to scrape: ".colorize(:yellow)

@@ -294,3 +294,4 @@ CSV.open("#{name}.csv", "wb") { |csv| sorted_total_external_links.to_a.each {|el
 puts "All finished :)".colorize(:blue)
 gets
 system('clear')
+
